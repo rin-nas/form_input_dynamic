@@ -1,0 +1,189 @@
+<!doctype html>
+<!-- Любопытной Варваре на базаре нос оторвали! -->
+<html xml:lang="ru" lang="ru">
+    <head>
+		<meta charset="utf-8">
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<script src="http://yastatic.net/jquery/1.11.1/jquery.min.js"></script>
+		
+		<!-- <script src="&#x6d;&#x61;&#x69;&#x6e;&#x2e;&#x6a;&#x73;"></script> -->
+
+        <style>
+            TEXTAREA,
+            INPUT[type='text'],
+            INPUT[type='password'] {
+                /* использование моноширинного шрифта повышает удобство редактирования текста! */
+                font: normal 10pt Courier new, Courier, monospace;
+            }
+
+            .hint {
+                display: none;
+                color: #505050; 
+                background:#fefec9;
+                padding: 1px 5px;
+                margin-left: 10px;
+                font: normal 8pt Arial, Verdana, sans-serif;
+                border-radius: 2px;
+            }
+            
+            
+			
+            .controls {
+            	cursor: default;
+            	display: inline-block;
+				margin-left: 20px;
+            }
+            
+            .controls > span {
+            	text-align: center;
+            	display: inline-block;
+            	/*text-decoration: none;*/
+            	background: #eee;
+            	width:18px;
+            	border-radius:2px;
+            	border: 1px solid #eee;
+            	font-size: 90%;
+            	margin-right: 2px;
+            	color: #aaa;
+            }
+            
+			.field {
+            	overflow: hidden;
+            }
+            
+			.field .name {
+            	float: left;
+            	width: 150px;
+				margin: 5px;
+				text-align: right;
+            }
+
+			.field .values {
+				margin-left: 160px;
+			}
+
+            .field .clone {
+				margin:5px;
+            }
+
+			.buttons {
+				margin-left: 160px;
+			}
+			
+			.buttons button {
+				margin:5px;
+			}
+            
+        </style>
+        
+		<script>
+		</script>
+    </head>
+    <body>
+    	
+		<form>
+			<input type="hidden" name="concept[id]" value="">
+			
+			<div class="field">
+				<div class="name">
+					Длина
+				</div>
+				<div class="values">
+					<div class="clone">
+						<input type="text" size="5" name="concept[width]" value=""> мм
+					</div>
+				</div>
+			</div>
+
+			<div class="field">
+				<div class="name">
+					Цвет
+				</div>
+				<div class="values">
+					<div class="clone">
+						<input type="hidden" name="concept[color][]" value="" />
+						<label><input name="concept[color][]" type="checkbox" value="null" checked="checked"> неизвестно</label>
+						<select name="concept[color][]" multiple="multiple">
+							<option value="red">red</option>
+							<option value="green">green</option>
+							<option value="blue">blue</option>
+							<option value="yellow">yellow</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<div class="field">
+				<div class="name">
+					Фрукты в корзине
+				</div>
+				<div class="values">
+					<div class="clone">
+						<input type="hidden" name="concept[fruit][]" value="" />
+						<label><input name="concept[fruit][]" type="checkbox" value="null" checked="checked"> неизвестно</label>
+						<label><input name="concept[fruit][]" type="checkbox" value="apple"> Яблоко</label>
+						<label><input name="concept[fruit][]" type="checkbox" value="pear"> Груша</label>
+						<label><input name="concept[fruit][]" type="checkbox" value="orange"> Апельсин</label>
+					</div>
+				</div>
+			</div>
+			
+			<div class="field">
+				<div class="name">
+					Название
+				</div>
+				<div class="values">
+					<div class="clone">
+						<input type="text" size="20" name="concept_loc[caption][]" value="">
+
+						<select name="concept_loc[lang][]">
+							<option value=""></option>
+							<option value="ru">ru</option>
+							<option value="en">en</option>
+						</select>
+
+						<div class="controls">
+							<span class="up" title="Вверх">↑</span>
+							<span class="down" title="Вниз">↓</span>
+							<span class="add" title="Добавить">+</span>
+							<span class="delete" title="Удалить">−</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="buttons">
+				<button type="submit" value="submit">Сохранить</button>
+				<button type="reset" value="submit">Сбросить</button>
+			</div>
+			
+		</form>
+		
+		<script>
+			$('.controls').on('click', 'span', function(){
+				var o = $(this).parents('.clone');
+				if (this.className === 'add')
+				{
+					var o2 = o.clone(true);
+					o2.find(':input').val('');
+					o.after(o2);
+				}
+				else if (this.className === 'delete' && (o.prev().length || o.next().length))
+				{
+					o.remove();
+				}
+				else if (this.className === 'up')
+				{
+					o.prev().before(o);
+				}
+				else if (this.className === 'down')
+				{
+					o.next().after(o);
+				}
+				return false;
+			});
+		</script>
+    	
+    </body>
+</html>
